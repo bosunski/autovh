@@ -1,0 +1,50 @@
+!#/usr/bin/env php
+
+<?php
+
+require_once __DIR__ . "/../vendor/autoload.php";
+require_once __DIR__ . "/../helpers.php";
+
+use Symfony\Component\Finder\Finder;
+use Yosymfony\ResourceWatcher\ResourceWatcher;
+use Yosymfony\ResourceWatcher\ResourceCacheFile;
+
+// Bootstraps Finder
+$finder = new Finder();
+
+$finder->directories()
+	->name("*")
+	->in(__DIR__ . "/../tests");
+$autoVhPath = __DIR__ . "/../autoVh.php";
+// Bootstraps watcher
+$cache = new ResourceCacheFile(__DIR__ . "/.file-changes.php");
+
+$watcher = new ResourceWatcher($cache);
+$watcher->setFinder($finder);
+
+//startProcess(
+//	"autoVh",
+//	"php $autoVhPath",
+//	"debug.log"
+//);
+exec("php $autoVhPath",$parts, $returnCode);
+var_dump($returnCode);
+
+while (true) {
+	$watcher->findChanges();
+
+	if ($watcher->hasChanges()) {
+		print "Creating virtual host" . PHP_EOL;
+
+		exec("php $autoVhPath");
+//		stopProcess("autoVh");
+
+//		startProcess(
+//			"autoVh",
+//			"php autoVh.php",
+//			"debug.log"
+//		);
+	}
+
+	usleep(10000);
+}

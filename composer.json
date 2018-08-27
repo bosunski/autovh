@@ -1,0 +1,22 @@
+{
+    "name": "bosunski/auto-vh",
+    "description": "Auto virtual host creator",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Olatunbosun Egberinde",
+            "email": "bosunski@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.0",
+        "yosymfony/resource-watcher": "^1.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "AutoVh\\": "src/"
+        }
+    }
+}
