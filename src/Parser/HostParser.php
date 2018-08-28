@@ -38,13 +38,18 @@ class HostParser {
 		}
 		fclose($file);
 
-		self::$hosts = $hosts;
+		return $hosts;
 	}
 
 	public static function createHostFile($file)
 	{
+		$previousHosts = self::loadHosts();
+		$newHosts = self::$hosts;
+		self::$hosts = array_merge($previousHosts, $newHosts);
+		$lines = "";
 		foreach (self::$hosts as $hostName => $ip) {
-			$lines .= $ip . "    " . $hostName . "\n";
+			$lines .= $ip . "    " . $hostName . ".test\n";
 		}
+		file_put_contents(ROOT_PATH . "/tests/hosts", $lines);
 	}
 }

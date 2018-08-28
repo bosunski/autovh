@@ -8,12 +8,31 @@
 
 namespace AutoVh;
 
+use AutoVh\Parser\HostParser;
 use Symfony\Component\Finder\Finder;
 use Yosymfony\ResourceWatcher\ResourceWatcher;
 use Yosymfony\ResourceWatcher\ResourceCacheFile;
 
 
 class AutoVh {
+
+	/**
+	 * Watcher Object
+	 * @var ResourceWatcher
+	 */
+	protected $watcher;
+
+	/**
+	 * Symfony finder Object
+	 * @var Finder
+	 */
+	protected $finder;
+
+	/**
+	 * Cache Object
+	 * @var ResourceCacheFile
+	 */
+	protected $cache;
 	public function __construct() {
 		$this->finder = new Finder();
 		$this->cache = new ResourceCacheFile(ROOT_PATH . "/cache/.file-changes.php");
@@ -21,15 +40,20 @@ class AutoVh {
 	}
 
 	public function watch(): void {
-		$this->createVhost("");
+		// We can create folder lock and run check against it here
+		// So that at boot it will run and see if a new folder has been added
+		// $this->runChecks();
 		while (true) {
 			$this->watcher->findChanges();
 
 			if ($this->watcher->hasChanges()) {
+				// ToDo: Load Fresh configuration
 				$newFolders = $this->watcher->getNewResources();
 
 				foreach ($newFolders as $folder) {
 					$name = basename($folder);
+					// $this->createServerBlocks();
+					// $this->enableServerBlocks();
 					$this->createVhost($name);
 				}
 			}
@@ -40,6 +64,11 @@ class AutoVh {
 
 	public function createVhost($dir): bool {
 		print "Creating VHOST";
+		$ip = "127.0.0.1";
+		$hostName = $dir;
+
+		HostParser::set($hostName, $ip);
+		HostParser::createHostFile("");
 
 		return false;
 	}

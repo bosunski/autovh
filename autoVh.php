@@ -11,8 +11,6 @@ define("ROOT_PATH", __DIR__);
 
 require_once "vendor/autoload.php";
 use AutoVh\AutoVh;
-use AutoVh\Parser\HostParser;
-var_dump(HostParser::loadHosts());
 
 $autoVH = new AutoVh;
 $autoVH->watch();

@@ -1,2 +1,2 @@
 <?php
-return ['/usr/local/var/www/autoVH/src/../tests/fdsadfasf'=>1535373098,'/usr/local/var/www/autoVH/src/../tests/bbb'=>1535373234,'/usr/local/var/www/autoVH/src/../tests/bbbg'=>1535373249,];
+return ['/usr/local/var/www/autoVH/src/../tests/fdsadfasf'=>1535373098,'/usr/local/var/www/autoVH/src/../tests/bbb'=>1535373234,'/usr/local/var/www/autoVH/src/../tests/bbbg'=>1535373249,'/usr/local/var/www/autoVH/src/../tests/bools'=>1535380915,'/usr/local/var/www/autoVH/src/../tests/bulls'=>1535380968,];
