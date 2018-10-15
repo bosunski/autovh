@@ -1,16 +1,26 @@
 <?php
 
-define("ROOT_PATH", __DIR__);
-
-/**
- * Created by PhpStorm.
- * User: bosunski
- * Date: 27/08/2018
- * Time: 12:25 PM
- */
+define("ROOT_PATH", __DIR__ . "/src");
 
 require_once "vendor/autoload.php";
 use AutoVh\AutoVh;
+global $container;
+$container = new \Illuminate\Container\Container();
 
-$autoVH = new AutoVh;
+$container->bind('autoVH', AutoVh::class);
+$container->bind('application', \AutoVh\Foundation\Application::class);
+$container->bind('config', \AutoVh\Config::class);
+$container->bind('server', \AutoVh\Foundation\Server::class);
+$container->bind(\Yosymfony\ResourceWatcher\ResourceCacheFile::class, function ($container) {
+	return new \Yosymfony\ResourceWatcher\ResourceCacheFile(ROOT_PATH . "/cache/.file-changes.php");
+});
+$container->bind(\AutoVh\Config::class, function ($container) {
+	return new \AutoVh\Config(require ROOT_PATH . "/settings.php");
+});
+
+$container->singleton(\Illuminate\Container\Container::class, function ($container) {
+	return $container;
+});
+
+$autoVH = $container->make(AutoVh::class);
 $autoVH->watch();
