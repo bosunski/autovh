@@ -15,7 +15,8 @@
         "yosymfony/resource-watcher": "^1.2",
         "illuminate/container": "^5.8@dev",
         "illuminate/support": "^5.8@dev",
-        "illuminate/log": "^5.8@dev"
+        "illuminate/log": "^5.8@dev",
+        "symfony/console": "^4.2@dev"
     },
     "autoload": {
         "psr-4": {

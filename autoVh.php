@@ -11,9 +11,11 @@ $container->bind('autoVH', AutoVh::class);
 $container->bind('application', \AutoVh\Foundation\Application::class);
 $container->bind('config', \AutoVh\Config::class);
 $container->bind('server', \AutoVh\Foundation\Server::class);
+
 $container->bind(\Yosymfony\ResourceWatcher\ResourceCacheFile::class, function ($container) {
 	return new \Yosymfony\ResourceWatcher\ResourceCacheFile(ROOT_PATH . "/cache/.file-changes.php");
 });
+
 $container->bind(\AutoVh\Config::class, function ($container) {
 	return new \AutoVh\Config(require ROOT_PATH . "/settings.php");
 });
@@ -23,4 +25,5 @@ $container->singleton(\Illuminate\Container\Container::class, function ($contain
 });
 
 $autoVH = $container->make(AutoVh::class);
+
 $autoVH->watch();

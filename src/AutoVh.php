@@ -75,7 +75,7 @@ class AutoVh
 		$this->finder->directories()
 		             ->name("*")
 		             ->depth(0)
-		             ->in(ROOT_PATH . "/tests");
+		             ->in("/usr/local/var/www");
 
 		$this->cache = new ResourceCacheFile(__DIR__ . "/.file-changes.php");
 

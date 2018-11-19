@@ -45,12 +45,24 @@ class Server extends Application
 	public function respondToChanges($newFolders)
 	{
 		$server = $this->getServer();
+
 		foreach ($newFolders as $folder) {
+			$folder = str_slug($folder);
 			$this->appendHost($folder);
 
 			$server->enableVirtualHost($folder)
 					->createVirtualHostFile($folder)
 					->restartServer();
 		}
+	}
+
+	protected function hasPublicFolder($path)
+	{
+		$publicFolder = $path . '/public';
+		if (is_dir($publicFolder)) {
+			return $publicFolder;
+		}
+
+		return $path;
 	}
 }

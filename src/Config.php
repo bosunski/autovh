@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: bosunski
- * Date: 14/10/2018
- * Time: 1:36 PM
- */
 
 namespace AutoVh;
 

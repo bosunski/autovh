@@ -23,10 +23,12 @@ class NginxServer extends Server implements ServerInterface
 	 */
 	public function createVirtualHostFile($path): self
 	{
-		$serverName = $this->getServerNameFromPath($path);
 		$buffer = file_get_contents(ROOT_PATH . "/stubs/nginx.conf");
+
+		$publicFolder = $this->hasPublicFolder($path);
+		$buffer = str_replace("{@root_dir}", $publicFolder, $buffer);
+		$serverName = $this->getServerNameFromPath($path);
 		$buffer = str_replace("{@server_name}", $serverName, $buffer);
-		$buffer = str_replace("{@root_dir}", $path, $buffer);
 
 		$destination = $this->config->getConfig('serverDirectory') . "/sites-available/" . $serverName;
 
